@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<script id="vertex-shader1" type="x-shader/x-vertex">
+#version 300 es
+
+in vec4 aPosition;
+
+void main()
+{
+    gl_Position = aPosition;
+}
+</script>
+
+<script id="vertex-shader2" type="x-shader/x-vertex">
+#version 300 es
+
+in vec4 aPosition;
+in float aDirection;
+
+out float s, c;
+
+void main()
+{
+gl_PointSize = 64.0;
+//gl_PointSize = 16.0;
+
+s = sin(aDirection);
+c = cos(aDirection);
+float x = 2.0*mod(0.5*aPosition.x+0.5, 1.0)-1.0;
+float y = 2.0*mod(0.5*aPosition.y+0.5, 1.0)-1.0;
+
+gl_Position = vec4(x, y, 0.0, 1.0);
+
+}
+</script>
+
+<script id="fragment-shader1" type="x-shader/x-fragment">
+#version 300 es
+
+precision mediump float;
+
+out vec4 fColor;
+
+void
+main()
+{
+    fColor = vec4(1.0, 0.0, 0.0, 1.0);
+
+}
+</script>
+<script id="fragment-shader2" type="x-shader/x-fragment">
+#version 300 es
+
+precision mediump float;
+
+in float s, c;
+out vec4 fColor;
+
+uniform sampler2D textureMap;
+
+void main()
+{
+    float x = 0.5+c*(gl_PointCoord.x-0.5)-s*(gl_PointCoord.y-0.5);
+    float y = 0.5+s*(gl_PointCoord.x-0.5)+c*(gl_PointCoord.y-0.5);
+
+
+    vec4 texColor = texture( textureMap, vec2(x, y));
+
+    //vec4 texColor = texture(textureMap, gl_PointCoord);
+    if(texColor.w < 0.1) discard;
+    fColor = texColor;
+}
+</script>
+
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MVnew.js"></script>
+<script type="text/javascript" src="sprite4.js"></script>
+
+<div id = "Stats-output"></div>
+
+<body>
+<canvas id="gl-canvas" width="1024" height="1024">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>

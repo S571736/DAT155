@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>Point Sprite 6</title>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+#version 300 es
+
+in vec3 aPosition;
+in vec3 aColor;
+out vec3 vColor;
+
+void
+main()
+{
+
+    gl_PointSize = 30.0*(1.0+aPosition.z);
+    //gl_PointSize = 100.0;
+    vColor = aColor;
+
+    gl_Position = vec4(aPosition, 1.0);
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+#version 300 es
+
+precision mediump float;
+
+uniform float theta;
+
+in vec3 vColor;
+out vec4 fColor;
+
+void
+main()
+{
+    vec3 light = vec3(sin(0.1*theta), 0.0, cos(0.1*theta));
+    light = normalize(light);
+    vec3 normal;
+    normal.x = 2.0*(gl_PointCoord.x - 0.5);
+    normal.y = 2.0*(gl_PointCoord.y - 0.5);
+    normal.z = 1.0 - normal.x*normal.x - normal.y*normal.y;
+    if(normal.z <= 0.0)  discard;
+    normal.z = sqrt(normal.z);
+    fColor = vec4(dot(light, normal)*vColor, 1.0);
+    //fColor = vColor;
+}
+</script>
+
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MVnew.js"></script>
+<script type="text/javascript" src="pointSprite7.js"></script>
+</head>
+
+<body>
+<canvas id="gl-canvas" width="1024" height="1024">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>

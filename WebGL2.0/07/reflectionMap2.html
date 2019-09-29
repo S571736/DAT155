@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<button id = "ButtonX">Rotate X</button>
+<button id = "ButtonY">Rotate Y</button>
+<button id = "ButtonZ">Rotate Z</button>
+<button id = "ButtonT">Toggle Rotation</button>
+
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+#version 300 es
+
+in vec4 aPosition;
+in vec3 aNormal;
+out vec3 R;
+
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+uniform mat3 normalMatrix;
+
+void main()
+{
+    gl_Position = projectionMatrix*modelViewMatrix*aPosition;
+
+    vec3 eyePos  = normalize((modelViewMatrix*aPosition).xyz);
+    //vec3 eyePos  = (modelViewMatrix*vPosition).xyz;
+    //vec3 eyePos = vec3(0.0, 0.0, 0.0);
+
+    vec3 N = normalize(normalMatrix*aNormal);
+    //vec3 N = normalMatrix*vNormal;
+
+    R = reflect(eyePos, N);
+
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+#version 300 es
+
+precision mediump float;
+
+in vec3 R;
+out vec4 fColor;
+
+uniform samplerCube texMap;
+
+void main()
+{
+    vec4 texColor = texture(texMap, R);
+
+    fColor = texColor;
+}
+</script>
+
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MVnew.js"></script>
+<script type="text/javascript" src="reflectionMap2.js"></script>
+
+<body>
+<canvas id="gl-canvas" width="1000" height="1000">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>

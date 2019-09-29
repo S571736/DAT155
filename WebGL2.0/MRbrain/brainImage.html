@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+#version 300 es
+
+in vec2 aPosition;
+in  vec2 aTexCoord;
+out vec2 vTexCoord;
+
+void
+main()
+{
+    vTexCoord = aTexCoord;
+    gl_Position =  vec4(aPosition, 0.0, 1.0);
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+#version 300 es
+
+precision mediump float;
+
+in vec2 vTexCoord;
+out vec4 fColor;
+
+uniform sampler2D textureMap;
+
+void
+main()
+{
+    fColor = texture(textureMap, vTexCoord);
+}
+</script>
+
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="head.js"></script>
+<script type="text/javascript" src="../Common/MVnew.js"></script>
+<script type="text/javascript" src="brainImage.js"></script>
+<div>
+slice  0 <input id="slider" type="range"
+ min="0" max="107" step="1" value="0" />
+ 108
+</div>
+<body>
+<canvas id="gl-canvas" width="1024" height="1024">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>

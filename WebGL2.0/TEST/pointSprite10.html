@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>Point Sprite</title>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+#version 300 es
+
+in vec4 aPosition;
+uniform float theta;
+
+void
+main()
+{
+    float s = sin( 0.01*theta );
+    float c = cos( 0.01*theta );
+
+    gl_PointSize = 100.0;
+
+    gl_Position.x = -s * aPosition.y + c * aPosition.x;
+    gl_Position.y =  s * aPosition.x + c * aPosition.y;
+    gl_Position = vec4(gl_Position.x, gl_Position.y, 0.0, 1.0);
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+#version 300 es
+
+precision mediump float;
+
+out vec4 fColor;
+
+uniform sampler2D textureMap;
+uniform int spriteNumber;
+
+void
+main()
+{
+    float x = gl_PointCoord.x-0.5;
+    float y = gl_PointCoord.y-0.5;
+    if(x*x+y*y>0.25) discard;
+
+    vec2 texCoord = 0.5*gl_PointCoord;
+
+    if(spriteNumber == 1)
+      fColor = texture( textureMap,texCoord);
+    if(spriteNumber == 2)
+      fColor = texture( textureMap,vec2(texCoord.x, 0.5+texCoord.y));
+    if(spriteNumber ==3)
+      fColor = texture( textureMap,vec2(0.5+texCoord.x, texCoord.y));
+    if(spriteNumber == 4)
+      fColor = texture( textureMap, 0.5+texCoord);
+
+}
+</script>
+
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MVnew.js"></script>
+<script type="text/javascript" src="pointSprite10.js"></script>
+</head>
+
+<body>
+<canvas id="gl-canvas" width="512" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>

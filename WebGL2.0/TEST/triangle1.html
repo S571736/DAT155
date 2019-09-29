@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script id="vertex-shader" type="x-shader/x-vertex">
+#version 300 es
+
+in vec4 aPosition;
+
+void
+main()
+{
+    gl_Position = aPosition;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+#version 300 es
+
+precision mediump float;
+
+out vec4 fColor;
+
+ivec4 encode(float x)
+{
+  int byte1 = int(256.0*x);
+  int byte2 = int(256.0*256.0*x);
+  byte2 -= 256*byte1;
+  return ivec4(0, 0, byte2, byte1);
+}
+
+vec4 fencode(float x)
+{
+  float byte1 = floor(256.0*x);
+  float byte2 = 256.0*(256.0*x - byte1);
+  return vec4(0.0, 0.0, byte1, byte2);
+}
+
+float decode(ivec4 y)
+{
+  return float(y[2]+y[3])/256.0;
+}
+
+float fdecode(vec4 y)
+{
+  return (y[2]+y[3]/256.0)/256.0;
+}
+
+void
+main()
+{
+    float color = 0.5;
+    //ivec4 icolor = encode(color);
+    //color = decode(icolor);
+    vec4 c = fencode(color);
+    color = fdecode(c);
+    fColor = vec4( color, 0.0, 0.0, 1.0 );
+}
+</script>
+
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="triangle1.js"></script>
+</head>
+
+<body>
+<canvas id="gl-canvas" width="512" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>

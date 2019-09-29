@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+
+<button id = "ButtonX">Rotate X</button>
+<button id = "ButtonY">Rotate Y</button>
+<button id = "ButtonZ">Rotate Z</button>
+<button id = "ButtonT">Toggle Rotation</button>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+#version 300 es
+
+in vec4 aPosition;
+in vec4 aColor;
+
+out vec4 vColor;
+out vec4 vObjPosition;
+
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+
+
+void main()
+{
+
+    gl_Position = projectionMatrix * modelViewMatrix * aPosition;
+    vColor = aColor;
+    vObjPosition = aPosition;
+
+
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+#version 300 es
+
+precision mediump float;
+
+in vec4 vColor;
+in vec4 vObjPosition;
+out vec4 fColor;
+
+void
+main()
+{
+
+  int x = (int(255.0*(vObjPosition.x+1.0))/16);
+  int y = (int(255.0*(vObjPosition.y+1.0))/16);
+  int z = (int(255.0*(vObjPosition.z+1.0))/16);
+
+  if(2*(x/2) == x && 2*(y/2) == y && !(2*(z/2) == z))
+    fColor = vec4(1.0, 0.5, 0.0, 1.0);
+  else fColor = vec4(0.1, 0.1, 1.0, 1.0);
+
+}
+</script>
+
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MVnew.js"></script>
+<script type="text/javascript" src="geometry.js"></script>
+<script type="text/javascript" src="teapotData.js"></script>
+<script type="text/javascript" src="teapotTest5.js"></script>
+
+<body>
+<canvas id="gl-canvas" width="512" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>

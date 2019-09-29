@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+#version 300 es
+
+in vec4 aPosition;
+in vec4 aNormal;
+
+out vec4 vNormal;
+out vec4 vLight1;
+out vec4 vLight2;
+out vec4 vPosition;
+
+//uniform float time;
+
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+
+void main()
+{
+     //vec4 temp = vPosition;
+     //temp.y = cos(0.1*time)*temp.y;
+    gl_Position = projectionMatrix*modelViewMatrix*aPosition;
+    vPosition = modelViewMatrix*aPosition;
+    vNormal = modelViewMatrix*aNormal;
+    vLight1 = normalize(modelViewMatrix*vec4(0.22, 0.44, 0.88, 0.0));
+    vLight2 = normalize(modelViewMatrix*vec4(-0.88, -0.22, -0.44, 0.0));
+
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+#version 300 es
+
+precision mediump float;
+
+uniform vec4 color;
+
+in vec4 vNormal;
+in vec4 vLight1;
+in vec4 vLight2;
+in vec4 vPosition;
+out vec4 fColor;
+
+void
+main()
+{
+
+    vec3 scolor = vec3(0.8, 0.8, 0.8);
+    float shininess = 60.0;
+
+    vec4 normal = normalize(vNormal);
+    vec3 reflect1 = normalize(reflect(vLight1.xyz, vNormal.xyz) );
+    vec3 reflect2 = normalize(reflect(vLight2.xyz, vNormal.xyz) );
+    fColor = vec4(max(dot(vLight1, normal), 0.0)*color.xyz, 1.0)
+       + vec4(max(dot(vLight2, normal), 0.0)*color.xyz, 1.0);
+       + vec4(scolor  * pow( max(dot(reflect1,normalize(vPosition.xyz)),0.0), shininess ), 1.0)
+       + vec4(scolor  * pow( max(dot(reflect2,normalize(vPosition.xyz)),0.0), shininess ), 1.0);
+}
+</script>
+
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MVnew.js"></script>
+<script type="text/javascript" src="functiont.js"></script>
+
+<body>
+
+<div>
+<button id="Faster">Faster</button>
+<button id="Slower">Slower</button>
+</div>
+<div>
+<button id="Near">Near</button>
+<button id="Far">Far</button>
+</div>
+<div>
+<button id="Expand">Expand</button>
+<button id="Compress">Compress</button>
+</div>
+<div>
+<button id="Next">Next Example</button>
+</div>
+<div>
+<button id="Mesh">Mesh</button>
+<button id="Surface">Surface</button>
+</div>
+
+<canvas id="gl-canvas" width="1024" height="1024">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
+
+
+</body>
+</html>

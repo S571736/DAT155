@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+#version 300 es
+
+in vec4 aPosition;
+
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+
+uniform float time;
+
+void main()
+{
+    float scale = 7.0;
+    vec4 t = aPosition;
+    t.y = 0.1*sin(0.001*time+5.0*aPosition.x)*sin(0.001*time+5.0*aPosition.z);
+    // t.y = 0.1*sin(0.01*time*gl_Vertex.x)*sin(0.01*time*gl_Vertex.z);
+
+    gl_Position = projectionMatrix*modelViewMatrix*t;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+#version 300 es
+
+precision mediump float;
+
+out vec4 fColor;
+
+uniform vec4 color;
+
+void
+main()
+{
+    fColor = color;
+}
+</script>
+
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MVnew.js"></script>
+<script type="text/javascript" src="wave.js"></script>
+
+<body>
+<canvas id="gl-canvas" width="1024" height="1024">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+#version 300 es
+
+in vec4 aPosition;
+
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+
+uniform float time;
+
+out vec4 vColor;
+
+void main()
+{
+    float scale = 7.0;
+    vec4 t = aPosition;
+    t.y = 0.1*sin(0.001*time+5.0*aPosition.x)*sin(0.001*time+5.0*aPosition.z);
+    // t.y = 0.1*sin(0.01*time*gl_Vertex.x)*sin(0.01*time*gl_Vertex.z);
+    //gl_Position = gl_ModelViewProjectionMatrix * t;
+    //gl_Position = vec4(vPosition.x, vPosition.y/scale, vPosition.z, 1.0);
+    float shininess = 80.0;
+    vec4 ambient;
+    vec4 diffuse;
+    vec4 specular;
+    vec4 eyePosition = modelViewMatrix * t;
+    vec3 N = vec3(0.0, 1.0,0.0);
+    N = normalize(vec3(cos(0.001*time+5.0*aPosition.x)*sin(0.001*time+5.0*aPosition.z), 1.0, sin(0.001*time+5.0*aPosition.x)*cos(0.001*time+5.0*aPosition.z)));
+    vec4 eyeLightPos = vec4(0.0, 3.0, -3.0, 1.0);
+    //vec4 eyeLightPos = gl_LightSource[0].position;
+    //vec3 N = normalize(gl_NormalMatrix * gl_Normal);
+    vec3 L = normalize(eyeLightPos.xyz - eyePosition.xyz);
+    vec3 E = -normalize(eyePosition.xyz);
+    vec3 H = normalize(L + E);
+    float Kd = max(dot(L, N), 0.0);
+    float Ks = pow(max(dot(N, H), 0.0), shininess);
+    //float Ka = 0.0;
+
+    //ambient = Ka*gl_FrontLightProduct[0].ambient;
+    diffuse = Kd*vec4(0.3, 0.5, 0.4, 1.0);
+    specular = Ks*vec4(0.8, 0.8, 0.8, 1.0);
+    vColor = ambient+diffuse+specular;
+
+    gl_Position = projectionMatrix*modelViewMatrix*t;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+#version 300 es
+
+precision mediump float;
+
+in vec4 vColor;
+out vec4 fColor;
+
+void
+main()
+{
+    fColor = vColor;
+}
+</script>
+
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MVnew.js"></script>
+<script type="text/javascript" src="wave2.js"></script>
+
+<body>
+<canvas id="gl-canvas" width="1024" height="1024">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>
