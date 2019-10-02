@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04ef50ff-c04b-4325-a337-2d5132fe5165" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/Multitexture/fshader.glsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Multitexture/vshader.glsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Multitexture/textureCube1.html" beforeDir="false" afterPath="$PROJECT_DIR$/Multitexture/textureCube1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Multitexture/fshader.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/Multitexture/fshader.glsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Multitexture/textureCube1.js" beforeDir="false" afterPath="$PROJECT_DIR$/Multitexture/textureCube1.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -24,17 +21,8 @@
       <file leaf-file-name="textureCube1.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Multitexture/textureCube1.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="61" column="27" lean-forward="true" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="initShaders3.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Common/initShaders3.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="22" column="25" lean-forward="true" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
+            <state relative-caret-position="357">
+              <caret line="58" column="16" lean-forward="true" selection-start-line="58" selection-start-column="16" selection-end-line="58" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -51,8 +39,8 @@
       <file leaf-file-name="fshader.glsl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Multitexture/fshader.glsl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+            <state relative-caret-position="306">
+              <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -60,8 +48,8 @@
       <file leaf-file-name="textureCube1.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Multitexture/textureCube1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="143" column="1" selection-start-line="143" selection-start-column="1" selection-end-line="143" selection-end-column="1" />
+            <state relative-caret-position="136">
+              <caret line="43" column="10" selection-start-line="43" selection-start-column="10" selection-end-line="43" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -89,9 +77,9 @@
         <option value="$PROJECT_DIR$/shadedCube.html" />
         <option value="$PROJECT_DIR$/shadedCube.js" />
         <option value="$PROJECT_DIR$/Multitexture/vshader.glsl" />
-        <option value="$PROJECT_DIR$/Multitexture/textureCube1.js" />
         <option value="$PROJECT_DIR$/Multitexture/textureCube1.html" />
         <option value="$PROJECT_DIR$/Multitexture/fshader.glsl" />
+        <option value="$PROJECT_DIR$/Multitexture/textureCube1.js" />
       </list>
     </option>
   </component>
@@ -190,12 +178,12 @@
       <workItem from="1569681453202" duration="2695000" />
       <workItem from="1569773715503" duration="7199000" />
       <workItem from="1570021605412" duration="7295000" />
-      <workItem from="1570039014455" duration="3148000" />
+      <workItem from="1570039014455" duration="5683000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8477000" />
+    <option name="totallyTimeSpent" value="11012000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="953" y="0" width="974" height="1047" extended-state="0" />
@@ -284,17 +272,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Common/initShaders3.js">
+    <entry file="file://$PROJECT_DIR$/Multitexture/fshader.glsl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="22" column="25" lean-forward="true" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Multitexture/textureCube1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="61" column="27" lean-forward="true" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="27" />
+        <state relative-caret-position="306">
+          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -305,17 +286,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Multitexture/fshader.glsl">
+    <entry file="file://$PROJECT_DIR$/Common/initShaders3.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+        <state relative-caret-position="272">
+          <caret line="22" column="25" lean-forward="true" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Multitexture/textureCube1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="58" column="16" lean-forward="true" selection-start-line="58" selection-start-column="16" selection-end-line="58" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Multitexture/textureCube1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="143" column="1" selection-start-line="143" selection-start-column="1" selection-end-line="143" selection-end-column="1" />
+        <state relative-caret-position="136">
+          <caret line="43" column="10" selection-start-line="43" selection-start-column="10" selection-end-line="43" selection-end-column="10" />
         </state>
       </provider>
     </entry>

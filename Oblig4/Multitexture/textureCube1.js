@@ -41,7 +41,7 @@ var vertexColors = [
     vec4( 0.0, 1.0, 0.0, 1.0 ),  // green
     vec4( 0.0, 0.0, 1.0, 1.0 ),  // blue
     vec4( 1.0, 0.0, 1.0, 1.0 ),  // magenta
-    vec4( 0.0, 1.0, 1.0, 1.0 ),  // white
+    vec4( 1.0, 1.0, 1.0, 1.0 ),  // white
     vec4( 0.0, 1.0, 1.0, 1.0 )   // cyan
 ];
 
@@ -75,27 +75,27 @@ function configureTexture( brick, smoke) {
 
 function quad(a, b, c, d) {
      pointsArray.push(vertices[a]);
-     colorsArray.push(vertexColors[a]);
+     colorsArray.push(vertexColors[6]);
      texCoordsArray.push(texCoord[0]);
 
      pointsArray.push(vertices[b]);
-     colorsArray.push(vertexColors[a]);
+     colorsArray.push(vertexColors[6]);
      texCoordsArray.push(texCoord[1]);
 
      pointsArray.push(vertices[c]);
-     colorsArray.push(vertexColors[a]);
+     colorsArray.push(vertexColors[6]);
      texCoordsArray.push(texCoord[2]);
 
      pointsArray.push(vertices[a]);
-     colorsArray.push(vertexColors[a]);
+     colorsArray.push(vertexColors[6]);
      texCoordsArray.push(texCoord[0]);
 
      pointsArray.push(vertices[c]);
-     colorsArray.push(vertexColors[a]);
+     colorsArray.push(vertexColors[6]);
      texCoordsArray.push(texCoord[2]);
 
      pointsArray.push(vertices[d]);
-     colorsArray.push(vertexColors[a]);
+     colorsArray.push(vertexColors[6]);
      texCoordsArray.push(texCoord[3]);
 }
 
