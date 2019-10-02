@@ -35,7 +35,8 @@ var shadedCube = function () {
     var ambientColor, diffuseColor, specularColor;
     var modelViewMatrix, projectionMatrix;
     var viewerPos;
-    var program;
+    var program1;
+    var program2;
 
     var xAxis = 0;
     var yAxis = 1;
@@ -126,17 +127,15 @@ var shadedCube = function () {
         //
         //  Load shaders and initialize attribute buffers
         //
-        program = initShaders(gl, "vertex-shader", "fragment-shader");
-        gl.useProgram(program);
+        program1 = initShaders(gl, "vertex-shader", "fragment-shader");
+        program2 = initShaders(gl, "v-shader.glsl", "f-shader.glsl");
 
-        material("silver");
-        colorCube();
 
         var nBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, nBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(normalsArray), gl.STATIC_DRAW);
 
-        var normalLoc = gl.getAttribLocation(program, "aNormal");
+        var normalLoc = gl.getAttribLocation(program1, "aNormal");
         gl.vertexAttribPointer(normalLoc, 3, gl.FLOAT, false, 0, 0);
         gl.enableVertexAttribArray(normalLoc);
 
@@ -144,11 +143,11 @@ var shadedCube = function () {
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(pointsArray), gl.STATIC_DRAW);
 
-        var positionLoc = gl.getAttribLocation(program, "aPosition");
+        var positionLoc = gl.getAttribLocation(program1, "aPosition");
         gl.vertexAttribPointer(positionLoc, 4, gl.FLOAT, false, 0, 0);
         gl.enableVertexAttribArray(positionLoc);
 
-        thetaLoc = gl.getUniformLocation(program, "theta");
+        thetaLoc = gl.getUniformLocation(program1, "theta");
 
         viewerPos = vec3(0.0, 0.0, -20.0);
 
@@ -168,7 +167,7 @@ var shadedCube = function () {
         };
 
 
-        gl.uniformMatrix4fv(gl.getUniformLocation(program, "projectionMatrix"),
+        gl.uniformMatrix4fv(gl.getUniformLocation(program1, "projectionMatrix"),
             false, flatten(projectionMatrix));
         render();
     }
@@ -181,14 +180,15 @@ var shadedCube = function () {
         material("gold");
         colorCube();
 
+        gl.useProgram(program1);
         var ambientProduct = mult(lightAmbient, materialAmbient);
         var diffuseProduct = mult(lightDiffuse, materialDiffuse);
         var specularProduct = mult(lightSpecular, materialSpecular);
-        gl.uniform4fv(gl.getUniformLocation(program, "ambientProduct"), ambientProduct);
-        gl.uniform4fv(gl.getUniformLocation(program, "diffuseProduct"), diffuseProduct);
-        gl.uniform4fv(gl.getUniformLocation(program, "specularProduct"), specularProduct);
-        gl.uniform4fv(gl.getUniformLocation(program, "lightPosition"), lightPosition);
-        gl.uniform1f(gl.getUniformLocation(program, "shininess"), materialShininess);
+        gl.uniform4fv(gl.getUniformLocation(program1, "ambientProduct"), ambientProduct);
+        gl.uniform4fv(gl.getUniformLocation(program1, "diffuseProduct"), diffuseProduct);
+        gl.uniform4fv(gl.getUniformLocation(program1, "specularProduct"), specularProduct);
+        gl.uniform4fv(gl.getUniformLocation(program1, "lightPosition"), lightPosition);
+        gl.uniform1f(gl.getUniformLocation(program1, "shininess"), materialShininess);
 
         modelViewMatrix = mat4();
         modelViewMatrix = mult(modelViewMatrix, translate(-0.5, 0, 0));
@@ -199,7 +199,7 @@ var shadedCube = function () {
 
         //console.log(modelView);
 
-        gl.uniformMatrix4fv(gl.getUniformLocation(program,
+        gl.uniformMatrix4fv(gl.getUniformLocation(program1,
             "modelViewMatrix"), false, flatten(modelViewMatrix));
 
         gl.drawArrays(gl.TRIANGLES, 0, numVertices);
@@ -207,14 +207,15 @@ var shadedCube = function () {
         material("silver");
         colorCube();
 
+        gl.useProgram(program2);
         ambientProduct = mult(lightAmbient, materialAmbient);
         diffuseProduct = mult(lightDiffuse, materialDiffuse);
         specularProduct = mult(lightSpecular, materialSpecular);
-        gl.uniform4fv(gl.getUniformLocation(program, "ambientProduct"), ambientProduct);
-        gl.uniform4fv(gl.getUniformLocation(program, "diffuseProduct"), diffuseProduct);
-        gl.uniform4fv(gl.getUniformLocation(program, "specularProduct"), specularProduct);
-        gl.uniform4fv(gl.getUniformLocation(program, "lightPosition"), lightPosition);
-        gl.uniform1f(gl.getUniformLocation(program, "shininess"), materialShininess);
+        gl.uniform4fv(gl.getUniformLocation(program2, "ambientProduct"), ambientProduct);
+        gl.uniform4fv(gl.getUniformLocation(program2, "diffuseProduct"), diffuseProduct);
+        gl.uniform4fv(gl.getUniformLocation(program2, "specularProduct"), specularProduct);
+        gl.uniform4fv(gl.getUniformLocation(program2, "lightPosition"), lightPosition);
+        gl.uniform1f(gl.getUniformLocation(program2, "shininess"), materialShininess);
 
         modelViewMatrix = mat4();
         modelViewMatrix = mult(modelViewMatrix, translate(0.3, 0, 0));
@@ -225,7 +226,7 @@ var shadedCube = function () {
 
         //console.log(modelView);
 
-        gl.uniformMatrix4fv(gl.getUniformLocation(program,
+        gl.uniformMatrix4fv(gl.getUniformLocation(program2,
             "modelViewMatrix"), false, flatten(modelViewMatrix));
 
         gl.drawArrays(gl.TRIANGLES, 0, numVertices);
