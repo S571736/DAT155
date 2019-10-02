@@ -13,7 +13,8 @@ var pointsArray = [];
 var colorsArray = [];
 var texCoordsArray = [];
 
-var texture;
+var brickTex, smokeTex;
+
 
 var texCoord = [
     vec2(0, 0),
@@ -52,18 +53,23 @@ var theta = vec3(45.0, 45.0, 45.0);
 
 var thetaLoc;
 
-function configureTexture( image ) {
-    texture = gl.createTexture();
-    gl.bindTexture( gl.TEXTURE_2D, texture );
+function configureTexture( brick, smoke) {
+    brickTex = gl.createTexture();
+    gl.bindTexture( gl.TEXTURE_2D, brickTex );
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-    gl.texImage2D( gl.TEXTURE_2D, 0, gl.RGB,
-         gl.RGB, gl.UNSIGNED_BYTE, image );
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, brick);
     gl.generateMipmap( gl.TEXTURE_2D );
     gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER,
-                      gl.NEAREST_MIPMAP_LINEAR );
-    gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST );
+        gl.NEAREST_MIPMAP_LINEAR );
+    gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 
-    gl.uniform1i(gl.getUniformLocation(program, "texMap"), 0);
+    smokeTex = gl.createTexture();
+    gl.bindTexture( gl.TEXTURE_2D, smokeTex );
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, smoke);
+    gl.generateMipmap( gl.TEXTURE_2D );
+    gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST_MIPMAP_LINEAR );
+    gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 }
 
 
@@ -120,7 +126,8 @@ window.onload = function init() {
     //
     //  Load shaders and initialize attribute buffers
     //
-    program = initShaders( gl, "vertex-shader", "fragment-shader" );
+    program = initShaders( gl, "vshader.glsl", "fshader.glsl");
+    //program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
 
     colorCube();
@@ -149,20 +156,18 @@ window.onload = function init() {
     gl.vertexAttribPointer( texCoordLoc, 2, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( texCoordLoc );
 
-    //
-    // Initialize a texture
-    //
 
-    //var image = new Image();
-    //image.onload = function() {
-     //   configureTexture( image );
-    //}
-    //image.src = "SA2011_black.gif"
+    var smoke = document.getElementById("smoke");
+    var brick = document.getElementById("brick");
+    configureTexture(smoke, brick);
 
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, brickTex);
+    gl.uniform1i(gl.getUniformLocation(program, "brickTex"), 0);
 
-    var image = document.getElementById("texImage");
-
-    configureTexture( image );
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, smokeTex);
+    gl.uniform1i(gl.getUniformLocation(program, "smokeTex"), 1);
 
     thetaLoc = gl.getUniformLocation(program, "theta");
 
@@ -172,12 +177,13 @@ window.onload = function init() {
 
     render();
 
-}
+};
 
 var render = function(){
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     theta[axis] += 2.0;
-    gl.uniform3fv(thetaLoc, theta);
+
+    gl.uniform3fv(thetaLoc, flatten(theta));
     gl.drawArrays( gl.TRIANGLES, 0, numVertices );
     requestAnimationFrame(render);
-}
+};

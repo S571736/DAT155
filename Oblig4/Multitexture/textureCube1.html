@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html>
-<style type="text/css">
-    canvas { background: blue; }
-</style>
 
 <button id = "ButtonX">Rotate X</button>
 <button id = "ButtonY">Rotate Y</button>
@@ -61,16 +58,17 @@ in vec2 vTexCoord;
 
 out vec4 fColor;
 
-uniform sampler2D textureMap;
+uniform sampler2D brickTex;
+uniform sampler2D smokeTex;
 
 void
 main()
 {
-    fColor = vColor * texture( textureMap, vTexCoord );
+   fColor = vColor * mix(texture2D(brickTex, vTexCoord), texture2D(smokeTex, vTexCoord), 0.5);
 }
 </script>
 
-<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/initShaders2.js"></script>
 <script type="text/javascript" src="../Common/MVnew.js"></script>
 <script type="text/javascript" src="textureCube1.js"></script>
 
@@ -79,6 +77,7 @@ main()
 <canvas id="gl-canvas" width="512" height="512">
 Oops ... your browser doesn't support the HTML5 canvas element
 </canvas>
-<img id = "texImage" src = "SA2011_black.gif" hidden></img>
+<img id = "smoke" src = "resources/smoke.png" hidden>
+<img id = "brick" src = "resources/brick.jpg" hidden>
 </body>
 </html>
