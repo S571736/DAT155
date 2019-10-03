@@ -10,6 +10,7 @@ var shadedCube = function () {
     var pointsArray = [];
     var normalsArray = [];
 
+
     var vertices = [
         vec4(-0.5, -0.5, 0.5, 1.0),
         vec4(-0.5, 0.5, 0.5, 1.0),
@@ -20,6 +21,7 @@ var shadedCube = function () {
         vec4(0.5, 0.5, -0.5, 1.0),
         vec4(0.5, -0.5, -0.5, 1.0)
     ];
+
 
     var lightPosition = vec4(1.0, 1.0, 1.0, 0.0);
     var lightAmbient = vec4(0.2, 0.2, 0.2, 1.0);
@@ -128,8 +130,11 @@ var shadedCube = function () {
         //  Load shaders and initialize attribute buffers
         //
         program1 = initShaders(gl, "vertex-shader", "fragment-shader");
-        program2 = initShaders(gl, "v-shader.glsl", "f-shader.glsl");
+        program2 = initShaders(gl, "vertex-shader1", "fragment-shader1");
 
+
+        material("silver");
+        colorCube();
 
         var nBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, nBuffer);
@@ -167,8 +172,8 @@ var shadedCube = function () {
         };
 
 
-        gl.uniformMatrix4fv(gl.getUniformLocation(program1, "projectionMatrix"),
-            false, flatten(projectionMatrix));
+        //gl.uniformMatrix4fv(gl.getUniformLocation(program1, "projectionMatrix"),false, flatten(projectionMatrix));
+
         render();
     }
 
@@ -176,19 +181,23 @@ var shadedCube = function () {
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        if (flag) theta[axis] += 2.0;
-        material("gold");
-        colorCube();
+
 
         gl.useProgram(program1);
+        material("silver")
+
         var ambientProduct = mult(lightAmbient, materialAmbient);
         var diffuseProduct = mult(lightDiffuse, materialDiffuse);
         var specularProduct = mult(lightSpecular, materialSpecular);
+
         gl.uniform4fv(gl.getUniformLocation(program1, "ambientProduct"), ambientProduct);
         gl.uniform4fv(gl.getUniformLocation(program1, "diffuseProduct"), diffuseProduct);
         gl.uniform4fv(gl.getUniformLocation(program1, "specularProduct"), specularProduct);
         gl.uniform4fv(gl.getUniformLocation(program1, "lightPosition"), lightPosition);
         gl.uniform1f(gl.getUniformLocation(program1, "shininess"), materialShininess);
+        gl.uniformMatrix4fv(gl.getUniformLocation(program1, "projectionMatrix"),false, flatten(projectionMatrix));
+
+        if (flag) theta[axis] += 2.0;
 
         modelViewMatrix = mat4();
         modelViewMatrix = mult(modelViewMatrix, translate(-0.5, 0, 0));
@@ -199,26 +208,28 @@ var shadedCube = function () {
 
         //console.log(modelView);
 
-        gl.uniformMatrix4fv(gl.getUniformLocation(program1,
-            "modelViewMatrix"), false, flatten(modelViewMatrix));
+        gl.uniformMatrix4fv(gl.getUniformLocation(program1,"modelViewMatrix"), false, flatten(modelViewMatrix));
 
         gl.drawArrays(gl.TRIANGLES, 0, numVertices);
 
-        material("silver");
-        colorCube();
-
         gl.useProgram(program2);
+        material("gold");
+
         ambientProduct = mult(lightAmbient, materialAmbient);
         diffuseProduct = mult(lightDiffuse, materialDiffuse);
         specularProduct = mult(lightSpecular, materialSpecular);
+
         gl.uniform4fv(gl.getUniformLocation(program2, "ambientProduct"), ambientProduct);
         gl.uniform4fv(gl.getUniformLocation(program2, "diffuseProduct"), diffuseProduct);
         gl.uniform4fv(gl.getUniformLocation(program2, "specularProduct"), specularProduct);
         gl.uniform4fv(gl.getUniformLocation(program2, "lightPosition"), lightPosition);
         gl.uniform1f(gl.getUniformLocation(program2, "shininess"), materialShininess);
+        gl.uniformMatrix4fv(gl.getUniformLocation(program2, "projectionMatrix"),false, flatten(projectionMatrix));
+
+        if (flag) theta[axis] += 2.0;
 
         modelViewMatrix = mat4();
-        modelViewMatrix = mult(modelViewMatrix, translate(0.3, 0, 0));
+        modelViewMatrix = mult(modelViewMatrix, translate(0.5, 0, 0));
         modelViewMatrix = mult(modelViewMatrix, scale(0.5, 0.5, 0.5));
         modelViewMatrix = mult(modelViewMatrix, rotate(theta[xAxis], vec3(1, 0, 0)));
         modelViewMatrix = mult(modelViewMatrix, rotate(theta[yAxis], vec3(0, 1, 0)));
@@ -226,8 +237,7 @@ var shadedCube = function () {
 
         //console.log(modelView);
 
-        gl.uniformMatrix4fv(gl.getUniformLocation(program2,
-            "modelViewMatrix"), false, flatten(modelViewMatrix));
+        gl.uniformMatrix4fv(gl.getUniformLocation(program2,"modelViewMatrix"), false, flatten(modelViewMatrix));
 
         gl.drawArrays(gl.TRIANGLES, 0, numVertices);
 
