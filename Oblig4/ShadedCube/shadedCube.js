@@ -172,7 +172,6 @@ var shadedCube = function () {
         };
 
 
-        //gl.uniformMatrix4fv(gl.getUniformLocation(program1, "projectionMatrix"),false, flatten(projectionMatrix));
 
         render();
     }

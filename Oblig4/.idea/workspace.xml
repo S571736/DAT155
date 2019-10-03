@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="04ef50ff-c04b-4325-a337-2d5132fe5165" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ShadedCube/shadedCube.html" beforeDir="false" afterPath="$PROJECT_DIR$/ShadedCube/shadedCube.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ShadedCube/shadedCube.js" beforeDir="false" afterPath="$PROJECT_DIR$/ShadedCube/shadedCube.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -67,8 +66,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="JavaScript Debug.shadedCube.html" />
-        <item itemvalue="JavaScript Debug.shadedCube.html" />
         <item itemvalue="JavaScript Debug.textureCube1.html" />
+        <item itemvalue="JavaScript Debug.shadedCube.html" />
       </list>
     </recent_temporary>
   </component>
@@ -98,7 +97,8 @@
       <workItem from="1570039014455" duration="5683000" />
       <workItem from="1570083014366" duration="2802000" />
       <workItem from="1570087303974" duration="478000" />
-      <workItem from="1570091157395" duration="4888000" />
+      <workItem from="1570091157395" duration="5121000" />
+      <workItem from="1570098605551" duration="1897000" />
     </task>
     <servers />
   </component>
