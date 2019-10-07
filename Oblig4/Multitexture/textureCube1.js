@@ -8,6 +8,7 @@ var numVertices  = 36;
 var texSize = 64;
 
 var program;
+var flag = false;
 
 var pointsArray = [];
 var colorsArray = [];
@@ -174,6 +175,7 @@ window.onload = function init() {
     document.getElementById("ButtonX").onclick = function(){axis = xAxis;};
     document.getElementById("ButtonY").onclick = function(){axis = yAxis;};
     document.getElementById("ButtonZ").onclick = function(){axis = zAxis;};
+    document.getElementById("ButtonT").onclick = function () {flag = !flag;};
 
     render();
 
@@ -181,7 +183,8 @@ window.onload = function init() {
 
 var render = function(){
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    theta[axis] += 2.0;
+    if (!flag) theta[axis] += 2.0;
+    //theta[axis] += 2.0;
 
     gl.uniform3fv(thetaLoc, flatten(theta));
     gl.drawArrays( gl.TRIANGLES, 0, numVertices );
