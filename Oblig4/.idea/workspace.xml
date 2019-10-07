@@ -5,7 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Multitexture/fshader.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/Multitexture/fshader.glsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Multitexture/textureCube1.html" beforeDir="false" afterPath="$PROJECT_DIR$/Multitexture/textureCube1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Multitexture/textureCube1.js" beforeDir="false" afterPath="$PROJECT_DIR$/Multitexture/textureCube1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShadedCube/shadedCube.html" beforeDir="false" afterPath="$PROJECT_DIR$/ShadedCube/shadedCube.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +28,7 @@
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="plugin&#9;ACTION&#9;WelcomeScreen.Plugins" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ThreejsStuff/threejs-lecture-2018" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../DAT155/dat155-solar-system" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -51,7 +51,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.textureCube1.html">
+  <component name="RunManager" selected="JavaScript Debug.shadedCube.html">
     <configuration name="shadedCube.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Oblig4/ShadedCube/shadedCube.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -67,8 +67,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JavaScript Debug.textureCube1.html" />
         <item itemvalue="JavaScript Debug.shadedCube.html" />
+        <item itemvalue="JavaScript Debug.textureCube1.html" />
         <item itemvalue="JavaScript Debug.shadedCube.html" />
       </list>
     </recent_temporary>
@@ -101,7 +101,7 @@
       <workItem from="1570087303974" duration="478000" />
       <workItem from="1570091157395" duration="5121000" />
       <workItem from="1570098605551" duration="5165000" />
-      <workItem from="1570439083761" duration="1646000" />
+      <workItem from="1570439083761" duration="4154000" />
     </task>
     <servers />
   </component>
